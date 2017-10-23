@@ -1,5 +1,6 @@
 """
-.. Copyright 2017 EMBL-European Bioinformatics Institute
+.. See the NOTICE file distributed with this work for additional information
+   regarding copyright ownership.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -14,12 +15,12 @@
    limitations under the License.
 """
 
-import os
+import os.path
 import pytest # pylint: disable=unused-import
 
-import process_wgbs  # from mg-process-fastq
+from tool.fastq_splitter import fastq_splitter
 
-
+@pytest.mark.wgbs
 def test_paired_splitter():
     """
     Function to test paired splitter
@@ -28,5 +29,27 @@ def test_paired_splitter():
     fastq_1file = resource_path + "bsSeeker.Mouse.GRCm38_1.fastq"
     fastq_2file = resource_path + "bsSeeker.Mouse.GRCm38_2.fastq"
 
-    ssp = process_wgbs.process_wgbs()
-    ssp.paired_splitter(fastq_1file, fastq_2file)
+    fqs_handle = fastq_splitter()
+    results = fqs_handle.run([fastq_1file, fastq_2file], [], {})
+
+    print("WGBS - PAIRED RESULTS:", results)
+
+    assert os.path.isfile(results[0]) is True
+    assert os.path.getsize(results[0]) > 0
+
+
+@pytest.mark.wgbs
+def test_single_splitter():
+    """
+    Function to test single splitter
+    """
+    resource_path = os.path.join(os.path.dirname(__file__), "data/")
+    fastq_2file = resource_path + "bsSeeker.Mouse.GRCm38_2.fastq"
+
+    fqs_handle = fastq_splitter()
+    results = fqs_handle.run([fastq_2file], [], {})
+
+    print("WGBS - SINGLE RESULTS:", results)
+
+    assert os.path.isfile(results[0]) is True
+    assert os.path.getsize(results[0]) > 0
