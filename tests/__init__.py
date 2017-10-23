@@ -1,5 +1,6 @@
 """
-.. Copyright 2017 EMBL-European Bioinformatics Institute
+.. See the NOTICE file distributed with this work for additional information
+   regarding copyright ownership.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -13,18 +14,3 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 """
-
-import os
-import pytest # pylint: disable=unused-import
-
-import process_wgbs  # from mg-process-fastq
-
-def test_single_splitter():
-    """
-    Function to test single splitter
-    """
-    resource_path = os.path.join(os.path.dirname(__file__), "data/")
-    fastq_1file = resource_path + "bsSeeker.Mouse.GRCm38_1.fastq"
-
-    ssp = process_wgbs.process_wgbs()
-    ssp.single_splitter(fastq_1file)
