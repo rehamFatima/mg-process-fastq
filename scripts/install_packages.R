@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env Rscript
 
 # See the NOTICE file distributed with this work for additional information
 # regarding copyright ownership.
@@ -15,28 +15,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Get the location of this script - Should be in the root of the module
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-cd $DIR
-cd tests/data
-
-# Known test data files to keep
-c=$(git rev-parse --abbrev-ref HEAD)
-a=$(git ls-tree -r $c --name-only | sort)
-
-# All files in test/data
-b=$(ls | sort)
-
-for i in $b; do
-    skip=0
-    for j in $a; do
-        if [ "${i}" = "${j}" ]; then
-            skip=1
-            break
-        fi
-    done
-    if [ $skip != 1 ]; then
-        rm -r $i
-    fi
-done
+install.packages("optparse", repos="http://cloud.r-project.org/")
+source("http://bioconductor.org/biocLite.R")
+biocLite("BSgenome")
+biocLite("DESeq2")
+if(!require("devtools")) install.packages("devtools", repos="http://cloud.r-project.org/")
+devtools::install_bitbucket("juanlmateo/idear")
