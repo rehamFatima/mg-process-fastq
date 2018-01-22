@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env Rscript
 
 # See the NOTICE file distributed with this work for additional information
 # regarding copyright ownership.
@@ -15,28 +15,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Get the location of this script - Should be in the root of the module
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+library("optparse")
+library(BSgenome)
 
-cd $DIR
-cd tests/data
+option_list = list(
+    make_option(c("-f", "--file"), type="character", default=NULL,
+                help="Sample Name", metavar="character"))
 
-# Known test data files to keep
-c=$(git rev-parse --abbrev-ref HEAD)
-a=$(git ls-tree -r $c --name-only | sort)
+opt_parser = OptionParser(option_list=option_list)
+opt = parse_args(opt_parser)
 
-# All files in test/data
-b=$(ls | sort)
-
-for i in $b; do
-    skip=0
-    for j in $a; do
-        if [ "${i}" = "${j}" ]; then
-            skip=1
-            break
-        fi
-    done
-    if [ $skip != 1 ]; then
-        rm -r $i
-    fi
-done
+forgeBSgenomeDataPkg(opt$file)
