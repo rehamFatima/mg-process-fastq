@@ -1,6 +1,2 @@
-*.mp4 filter=lfs diff=lfs merge=lfs -text
-../tests/data/*.fasta filter=lfs diff=lfs merge=lfs -text
-<<<<<<< HEAD
+*.fastq filter=lfs diff=lfs merge=lfs -text
 *.fasta filter=lfs diff=lfs merge=lfs -text
-=======
->>>>>>> fc413f11aae6daa973fb2e03e48287d31cbba90c
