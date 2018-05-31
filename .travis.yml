@@ -107,6 +107,7 @@ install:
     - ln -s ${HOME}/lib/BSseeker2/bs_index bs_index
     - ln -s ${HOME}/lib/BSseeker2/bs_utils bs_utils
     - ln -s ${HOME}/lib/BSseeker2/FilterReads.py FilterReads.py
+    - if [[ "$TESTENV" == "code" ]]; then pip install macs2; fi
 
 before_script:
     - cd ${HOME}/bin
