@@ -86,9 +86,9 @@ make
 # cd ${HOME}/build/Multiscale-Genomics/mg-process-fastq
 
 # Install MACS2
-cd ${HOME}/build/Multiscale-Genomics/mg-process-fastq
-chmod +x scripts/travis/includeMAC2.sh
-./scripts/travis/includeMAC2.sh
+# cd ${HOME}/build/Multiscale-Genomics/mg-process-fastq
+# chmod +x scripts/travis/includeMAC2.sh
+# ./scripts/travis/includeMAC2.sh
 
 # Install R packages required by iDEAR
 # cd ${HOME}/build/Multiscale-Genomics/mg-process-fastq
